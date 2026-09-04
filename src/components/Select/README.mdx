@@ -1,0 +1,187 @@
+import { Meta, Primary, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as SelectStories from './Select.stories';
+
+<Meta of={SelectStories} />
+
+# Select
+
+<Primary />
+
+<Controls />
+
+## Overview
+
+The Select component lets users choose a single value from a predefined list. It wraps a native `<select>`, so it inherits native keyboard support, mobile picker UIs, and form submission behavior for free, styled to match Input's visual language.
+
+---
+
+## When to Use
+
+Use a Select when the user must choose exactly one value from a known, bounded list.
+
+Common use cases include:
+
+* Country, state, or time zone
+* A unit for a numeric value (km, $, %, …)
+* Sort order or filter category
+* Any list too long to show as visible radio buttons
+
+---
+
+## When Not to Use
+
+Choose another component when it better fits the type of choice being made.
+
+Avoid using a Select for:
+
+* Two to four short options that fit inline (use a Radio Group)
+* A single on/off choice (use a Toggle Switch or Checkbox)
+* Free-form text (use an Input)
+* Very long lists (100+) or lists the user needs to search (use a Combobox)
+
+---
+
+## Best Practices
+
+### Do
+
+* Always provide a visible label.
+* Use `placeholder` for a "Choose…" prompt rather than letting the first real option be silently pre-selected.
+* Order options meaningfully — alphabetically, numerically, or by likely frequency.
+* Group related options with `<optgroup>` once a list gets long.
+
+### Don't
+
+* Use a Select for fewer than ~5 options when a Radio Group would let users compare choices at a glance.
+* Bury the currently selected value — the trigger always shows it.
+* Use placeholder-style option text as a substitute for a real label.
+
+---
+
+## Accessibility Standards
+
+### Labels
+
+* Every select must have a visible label.
+* Labels should clearly describe the choice being made.
+
+### Keyboard
+
+* Reachable using the Tab key; opened with Space/Enter/Down; options navigated with arrow keys, matching native `<select>` behavior in every browser.
+* Focus indicators must remain visible.
+
+### Screen Readers
+
+* Programmatically associated with its label via `htmlFor`/`id`.
+* Helper text and error messages are exposed through `aria-describedby`.
+* Required fields are communicated via the native `required` attribute.
+
+### Color & Contrast
+
+* Text must meet a minimum contrast ratio of **4.5:1**.
+* Never rely solely on color to indicate required fields or validation status.
+
+### Touch Targets
+
+* Interactive controls should provide a minimum target size of **24 × 24 px**, with **44 × 44 px** recommended for touch devices.
+
+---
+
+## Anatomy
+
+A Select may contain the following elements:
+
+1. Label
+2. Required Indicator (optional)
+3. Select Trigger (the native `<select>`, styled)
+4. Placeholder / Selected Value
+5. Chevron Indicator
+6. Helper Text (optional)
+7. Validation Message (optional)
+
+---
+
+## Variants
+
+### Standard
+
+The default single-choice dropdown used for most option lists.
+
+### Grouped
+
+Options organized under `<optgroup>` headings for longer lists.
+
+---
+
+<Stories />
+
+## States
+
+Selects should support the following states:
+
+* Default
+* Hover
+* Focus
+* Disabled
+* Error
+
+---
+
+## Behavior
+
+### Interaction
+
+* Preserve the selected value during validation.
+* Display helper text before validation errors whenever appropriate.
+
+### Responsive Behavior
+
+Selects should:
+
+* Expand to the width of their container when `fullWidth` is set.
+* Use the platform's native picker UI on touch devices.
+
+---
+
+## Content Guidelines
+
+### Labels
+
+Good: "Country", "Time Zone", "Sort By"
+Poor: "Select", "Choose One", "Dropdown"
+
+### Placeholder
+
+Good: "Choose a country…"
+Poor: "Select" (no context), "Required"
+
+---
+
+## Developer Notes
+
+* `children` are passed straight through to the native `<select>` — use `<option>` and `<optgroup>` exactly as you would without the wrapper.
+* `placeholder` renders a `disabled hidden` first option rather than a real choice, so it can never be re-selected once the user moves off it.
+* Controlled and uncontrolled usage both work via the native `value`/`defaultValue`/`onChange`.
+
+---
+
+## Related Components
+
+* Input
+* Radio Group
+* Checkbox
+* Combobox
+* Date Picker
+
+---
+
+## Design Checklist
+
+Before publishing a screen, verify that:
+
+* Every select has a visible label.
+* A placeholder prompt is set rather than relying on the first option.
+* Options are ordered meaningfully.
+* Error messages are specific and actionable.
+* Keyboard navigation works correctly.
+* Color contrast requirements are met.

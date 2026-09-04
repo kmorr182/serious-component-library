@@ -13,6 +13,12 @@ export type { InputProps, InputSize } from './components/Input'
 export { TextArea } from './components/TextArea'
 export type { TextAreaProps, TextAreaSize } from './components/TextArea'
 
+export { Select } from './components/Select'
+export type { SelectProps, SelectSize } from './components/Select'
+
+export { Slider } from './components/Slider'
+export type { SliderProps } from './components/Slider'
+
 export { Icon } from './components/Icon'
 export type { IconProps, IconName } from './components/Icon'
 

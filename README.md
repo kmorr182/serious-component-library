@@ -1,6 +1,6 @@
 # component-library
 
-A small React component library: **Button**, **Input**, **TextArea**, **Alert**, **Icon**, **ToggleSwitch**, **Rating**, **Spinner**, **Skeleton**, **Popover**, and **MapMarker**.
+A small React component library: **Button**, **Input**, **TextArea**, **Select**, **Slider**, **Alert**, **Icon**, **ToggleSwitch**, **Rating**, **Spinner**, **Skeleton**, **Popover**, and **MapMarker**.
 
 - TypeScript, with generated `.d.ts` types
 - Styled with CSS Modules, themeable via CSS custom properties
@@ -27,7 +27,7 @@ npm install component-library
 ```
 
 ```tsx
-import { Button, Input, TextArea, Alert, Icon, ToggleSwitch, Rating, Spinner, Skeleton, Popover, MapMarker } from 'component-library'
+import { Button, Input, TextArea, Select, Slider, Alert, Icon, ToggleSwitch, Rating, Spinner, Skeleton, Popover, MapMarker } from 'component-library'
 import 'component-library/styles.css'
 ```
 
@@ -112,6 +112,8 @@ just these three). See the `Foundations/Typography` page in Storybook for a live
 - **Alert** — `variant` (`positive` | `neutral` | `negative`), optional `title`, `onDismiss` for a dismiss button. Icon and color are chosen automatically per variant (`positive` uses `--ruk-color-success`, `negative` uses `--ruk-color-danger`, `neutral` stays gray). `negative` uses `role="alert"` (assertive); the others use `role="status"` (polite).
 - **Input** — `label`, `helperText`, `errorText`, `size`, `fullWidth`, plus all native `<input>` props.
 - **TextArea** — same `label`/`helperText`/`errorText`/`size`/`fullWidth` API and visual style as `Input`, for multi-line text. Vertically resizable; plus all native `<textarea>` props.
+- **Select** — same `label`/`helperText`/`errorText`/`size`/`fullWidth` API as `Input`, wrapping a native `<select>`. `placeholder` renders a disabled "Choose…"-style first option; pass `<option>`/`<optgroup>` as children.
+- **Slider** — a native `<input type="range">` wrapper (`value`/`defaultValue`/`onChange` receiving a plain number, `min`/`max`/`step`). `formatValue` shows the current value next to the label, e.g. `(v) => \`${v}/10\``.
 - **Icon** — a small built-in icon set (`name`) or pass custom SVG children; `size` in pixels.
 - **ToggleSwitch** — accessible switch (`role="switch"`), `label`, `size` (`sm` | `md`), controlled (`checked`/`onChange`) or uncontrolled (`defaultChecked`).
 - **Rating** — 5-star rating (`max` to change the count). Interactive by default (`value`/`onChange` or `defaultValue`, keyboard-accessible radio group); pass `readOnly` for a static display that also supports fractional values (e.g. `value={3.5}`).

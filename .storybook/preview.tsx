@@ -53,20 +53,27 @@ const preview: Preview = {
   },
 
   decorators: [
-    (Story, context) => (
-      <ThemeProvider theme={context.globals.theme as Theme} storageKey={false}>
-        <div
-          style={{
-            minHeight: '100vh',
-            padding: 16,
-            background: 'var(--ruk-color-bg)',
-            color: 'var(--ruk-color-text)',
-          }}
-        >
-          <Story />
-        </div>
-      </ThemeProvider>
-    ),
+    (Story, context) => {
+      // Full-viewport height makes sense on a story's own Canvas tab (fills the themed
+      // background edge-to-edge), but the same fixed height inside the embedded Docs page
+      // just leaves a tall empty box around small components. Only force it in Canvas.
+      const isDocs = context.viewMode === 'docs'
+
+      return (
+        <ThemeProvider theme={context.globals.theme as Theme} storageKey={false}>
+          <div
+            style={{
+              minHeight: isDocs ? undefined : '100vh',
+              padding: 16,
+              background: 'var(--ruk-color-bg)',
+              color: 'var(--ruk-color-text)',
+            }}
+          >
+            <Story />
+          </div>
+        </ThemeProvider>
+      )
+    },
   ],
 };
 
