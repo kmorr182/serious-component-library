@@ -1,8 +1,14 @@
 {
-  "name": "component-library",
-  "description": "A small React component library: Button, Input, Icon, ToggleSwitch, Rating, Spinner, Skeleton, Popover, and MapMarker.",
-  "private": false,
+  "name": "serious-component-library",
+  "description": "A small React component library: Button, Input, TextArea, Select, Slider, Alert, Icon, ToggleSwitch, Rating, Spinner, Skeleton, Popover, and MapMarker.",
+  "private": true,
   "version": "0.1.0",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kmorr182/component-library.git"
+  },
+  "keywords": ["react", "component-library", "design-system", "ui"],
   "type": "module",
   "files": [
     "dist"
@@ -23,6 +29,7 @@
   },
   "scripts": {
     "build": "tsc -b && vite build",
+    "prepublishOnly": "npm run build",
     "lint": "oxlint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

@@ -1,4 +1,4 @@
-# component-library
+# serious-component-library
 
 A small React component library: **Button**, **Input**, **TextArea**, **Select**, **Slider**, **Alert**, **Icon**, **ToggleSwitch**, **Rating**, **Spinner**, **Skeleton**, **Popover**, and **MapMarker**.
 
@@ -23,12 +23,12 @@ npm run lint
 After building (or publishing) the package:
 
 ```bash
-npm install component-library
+npm install serious-component-library
 ```
 
 ```tsx
-import { Button, Input, TextArea, Select, Slider, Alert, Icon, ToggleSwitch, Rating, Spinner, Skeleton, Popover, MapMarker } from 'component-library'
-import 'component-library/styles.css'
+import { Button, Input, TextArea, Select, Slider, Alert, Icon, ToggleSwitch, Rating, Spinner, Skeleton, Popover, MapMarker } from 'serious-component-library'
+import 'serious-component-library/styles.css'
 ```
 
 The stylesheet import is required once, anywhere in your app's entry point — it defines the
@@ -49,7 +49,7 @@ The library ships three built-in themes — `light`, `dark`, and `high-contrast`
 `<ThemeProvider>` to apply one:
 
 ```tsx
-import { ThemeProvider, useTheme } from 'component-library'
+import { ThemeProvider, useTheme } from 'serious-component-library'
 
 function App() {
   return (
