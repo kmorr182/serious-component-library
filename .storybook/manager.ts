@@ -3,7 +3,7 @@ import { create } from 'storybook/theming/create';
 
 const theme = create({
   base: 'light',
-  brandTitle: 'component-library',
+  brandTitle: 'serious-component-library',
   brandUrl: 'https://github.com/kmorr182/component-library',
   brandImage: 'component-library-storybook.svg',
   brandTarget: '_self',
