@@ -1,0 +1,170 @@
+import { Meta, Primary, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as SliderStories from './Slider.stories';
+
+<Meta of={SliderStories} />
+
+# Slider
+
+<Primary />
+
+<Controls />
+
+## Overview
+
+The Slider component lets users select a numeric value from a bounded range by dragging a thumb along a track. It wraps a native `<input type="range">`, so dragging, arrow-key nudging, Home/End jumps, and touch all come from the platform for free — the component only adds the label/value header, helper/error text, and token-based styling.
+
+---
+
+## When to Use
+
+Use a Slider when:
+
+* The value comes from a continuous or evenly-stepped range (a percentage, a rating out of 10, a price ceiling).
+* The exact number matters less than the position — "about 70%" is a fine mental model.
+* Real-time feedback while dragging is useful (e.g. a live preview reacting to the value).
+
+---
+
+## When Not to Use
+
+Choose another component when it better fits the type of value being set.
+
+Avoid using a Slider for:
+
+* A value the user needs to type precisely (use an Input with `type="number"`)
+* A small, discrete set of named options (use a Radio Group or Select)
+* A single on/off choice (use a Toggle Switch)
+
+---
+
+## Best Practices
+
+### Do
+
+* Always provide a `label` describing what the value controls.
+* Use `formatValue` to show the current value (a number, a unit, or a qualitative label like "Ambitious but doable") next to the label as it changes.
+* Choose a `step` that matches how precisely the value actually needs to be set.
+* Set sensible `min`/`max` bounds — sliders communicate range as much as value.
+
+### Don't
+
+* Use a Slider when most users will want the exact minimum or maximum — a Toggle Switch or Select may be clearer.
+* Hide the current value entirely; `formatValue` exists so users aren't guessing at position alone.
+* Use a Slider for a value with only 2–3 meaningful positions.
+
+---
+
+## Accessibility Standards
+
+### Labels
+
+* Every slider must have a visible label describing what it controls.
+
+### Keyboard
+
+* Reachable using the Tab key.
+* Value adjusted with Arrow keys (by `step`), Home (jumps to `min`), and End (jumps to `max`) — native `<input type="range">` behavior.
+* Focus indicator must remain visible on the thumb.
+
+### Screen Readers
+
+* Programmatically associated with its label via `htmlFor`/`id`.
+* `formatValue`, when provided, is exposed via `aria-valuetext` so assistive technology announces "5/10 · Confident" rather than a bare number.
+* Helper text and error messages are exposed through `aria-describedby`.
+
+### Color & Contrast
+
+* The filled portion of the track and the thumb must meet a minimum contrast ratio of **3:1** against the track background.
+* Never rely solely on color to indicate the current value — the thumb's position is the primary signal, `formatValue` text reinforces it.
+
+### Touch Targets
+
+* The thumb provides a minimum target size of **24 × 24 px**; the full track height is hit-testable, not just the visible line.
+
+---
+
+## Anatomy
+
+A Slider may contain the following elements:
+
+1. Label
+2. Required Indicator (optional)
+3. Current Value Text (optional, via `formatValue`)
+4. Track (filled + unfilled portions)
+5. Thumb
+6. Helper Text (optional)
+7. Validation Message (optional)
+
+---
+
+<Stories />
+
+## States
+
+Sliders should support the following states:
+
+* Default
+* Hover (thumb scales slightly)
+* Focus
+* Disabled
+* Error
+
+---
+
+## Behavior
+
+### Interaction
+
+* The filled track always reflects the current value immediately — no separate "commit" step.
+* Dragging, clicking the track, and keyboard adjustment all fire `onChange` with a plain number, not a DOM event.
+
+### Responsive Behavior
+
+Sliders should:
+
+* Expand to the width of their container when `fullWidth` is set.
+* Keep the thumb reachable at both extremes without clipping.
+
+---
+
+## Content Guidelines
+
+### Labels
+
+Good: "Confidence", "Budget ceiling", "Playback volume"
+Poor: "Slider", "Value", "Adjust"
+
+### Value Text (`formatValue`)
+
+Good: `"70%"`, `"5/10 · Confident"`, `"$1,200"`
+Poor: a bare unformatted number with no unit when one would clarify meaning
+
+---
+
+## Developer Notes
+
+* `onChange` receives a `number`, already parsed — no need to read `event.target.value` yourself.
+* Controlled (`value`) and uncontrolled (`defaultValue`) both work, matching the rest of the library's form components.
+* The filled-track color is driven by the `--ruk-slider-percent` custom property, computed from `value`/`min`/`max` — no JS-measured pixel widths.
+* Firefox and Chromium/WebKit style range inputs through different pseudo-elements (`::-moz-range-track`/`::-moz-range-progress` vs. `::-webkit-slider-runnable-track`); both are styled to produce the same look.
+
+---
+
+## Related Components
+
+* Input
+* Rating
+* Toggle Switch
+* Select
+
+---
+
+## Design Checklist
+
+Before publishing a screen, verify that:
+
+* Every slider has a visible label.
+* The current value is shown via `formatValue` unless the position alone is genuinely sufficient.
+* `min`/`max`/`step` match the real-world precision of the value.
+* Keyboard navigation (arrows, Home, End) works correctly.
+* Color contrast requirements are met.
