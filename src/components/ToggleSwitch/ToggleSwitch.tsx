@@ -15,10 +15,12 @@ export interface ToggleSwitchProps extends Omit<InputHTMLAttributes<HTMLInputEle
   label?: string
   /** Size of the switch. @default 'md' */
   size?: ToggleSwitchSize
+  /** Shows a check/X icon in the thumb for the on/off state. @default true */
+  showIcons?: boolean
 }
 
 export const ToggleSwitch = forwardRef<HTMLInputElement, ToggleSwitchProps>(
-  ({ label, size = 'md', className, id, disabled, ...rest }, ref) => {
+  ({ label, size = 'md', showIcons = true, className, id, disabled, ...rest }, ref) => {
     const generatedId = useId()
     const inputId = id ?? generatedId
 
@@ -30,8 +32,12 @@ export const ToggleSwitch = forwardRef<HTMLInputElement, ToggleSwitchProps>(
         <input ref={ref} type="checkbox" role="switch" id={inputId} disabled={disabled} className={styles.input} {...rest} />
         <span className={[styles.track, styles[size]].filter(Boolean).join(' ')}>
           <span className={styles.thumb}>
-            <Icon name="close" size={THUMB_ICON_SIZE[size]} className={`${styles.thumbIcon} ${styles.iconOff}`} />
-            <Icon name="check" size={THUMB_ICON_SIZE[size]} className={`${styles.thumbIcon} ${styles.iconOn}`} />
+            {showIcons && (
+              <>
+                <Icon name="close" size={THUMB_ICON_SIZE[size]} className={`${styles.thumbIcon} ${styles.iconOff}`} />
+                <Icon name="check" size={THUMB_ICON_SIZE[size]} className={`${styles.thumbIcon} ${styles.iconOn}`} />
+              </>
+            )}
           </span>
         </span>
         {label && <span className={styles.label}>{label}</span>}
