@@ -1,4 +1,10 @@
 :root {
+  /* Tells the browser which palette to draw its own native controls in — the calendar
+     icon and popup on <input type="date">, scrollbars, etc. Those aren't reachable by
+     regular CSS color/background properties, so without this they follow the OS's
+     light/dark setting regardless of which --ruk-* theme is actually active here. */
+  color-scheme: light;
+
   /* Color */
   --ruk-color-primary: #1c3664;
   --ruk-color-primary-hover: #254883;
@@ -13,8 +19,8 @@
 
   --ruk-color-bg: #ffffff;
   --ruk-color-surface: #f3f6fc;
-  --ruk-color-border: #c7d2e6;
-  --ruk-color-border-hover: #879dc5;
+  --ruk-color-border: #7c8db3;
+  --ruk-color-border-hover: #5d6f96;
   --ruk-color-text: #0f172a;
   --ruk-color-text-muted: #64748b;
   --ruk-color-disabled-bg: #dee5f2;
@@ -68,6 +74,8 @@
    applies the attribute on a descendant element. */
 @media (prefers-color-scheme: dark) {
   :root {
+    color-scheme: dark;
+
     --ruk-color-primary: #71c9be;
     --ruk-color-primary-hover: #98d8d0;
     --ruk-color-primary-active: #4ebcae;
@@ -76,13 +84,13 @@
     --ruk-color-danger: #f87171;
     --ruk-color-danger-hover: #fca5a5;
 
-    --ruk-color-success: #22c55e;
+    --ruk-color-success: #1a9e4a;
     --ruk-color-success-hover: #4ade80;
 
     --ruk-color-bg: #0f172a;
     --ruk-color-surface: #1e293b;
-    --ruk-color-border: #2d3e5d;
-    --ruk-color-border-hover: #3e5172;
+    --ruk-color-border: #5c7099;
+    --ruk-color-border-hover: #7488ad;
     --ruk-color-text: #f1f5f9;
     --ruk-color-text-muted: #94a3b8;
     --ruk-color-disabled-bg: #1e293b;
@@ -95,6 +103,8 @@
 
 @media (prefers-contrast: more) {
   :root {
+    color-scheme: light;
+
     --ruk-color-primary: #0b1628;
     --ruk-color-primary-hover: #122340;
     --ruk-color-primary-active: #0b1628;
@@ -126,6 +136,8 @@
    they're set directly on the element ThemeProvider renders, and CSS custom
    properties resolve to the nearest declaration, not by specificity contest. */
 [data-ruk-theme='light'] {
+  color-scheme: light;
+
   --ruk-color-primary: #1c3664;
   --ruk-color-primary-hover: #254883;
   --ruk-color-primary-active: #132544;
@@ -139,8 +151,8 @@
 
   --ruk-color-bg: #ffffff;
   --ruk-color-surface: #f3f6fc;
-  --ruk-color-border: #c7d2e6;
-  --ruk-color-border-hover: #879dc5;
+  --ruk-color-border: #7c8db3;
+  --ruk-color-border-hover: #5d6f96;
   --ruk-color-text: #0f172a;
   --ruk-color-text-muted: #64748b;
   --ruk-color-disabled-bg: #dee5f2;
@@ -152,6 +164,8 @@
 }
 
 [data-ruk-theme='dark'] {
+  color-scheme: dark;
+
   --ruk-color-primary: #71c9be;
   --ruk-color-primary-hover: #98d8d0;
   --ruk-color-primary-active: #4ebcae;
@@ -160,13 +174,13 @@
   --ruk-color-danger: #f87171;
   --ruk-color-danger-hover: #fca5a5;
 
-  --ruk-color-success: #22c55e;
+  --ruk-color-success: #1a9e4a;
   --ruk-color-success-hover: #4ade80;
 
   --ruk-color-bg: #0f172a;
   --ruk-color-surface: #1e293b;
-  --ruk-color-border: #2d3e5d;
-  --ruk-color-border-hover: #3e5172;
+  --ruk-color-border: #5c7099;
+  --ruk-color-border-hover: #7488ad;
   --ruk-color-text: #f1f5f9;
   --ruk-color-text-muted: #94a3b8;
   --ruk-color-disabled-bg: #1e293b;
@@ -178,6 +192,8 @@
 }
 
 [data-ruk-theme='high-contrast'] {
+  color-scheme: light;
+
   --ruk-color-primary: #0b1628;
   --ruk-color-primary-hover: #122340;
   --ruk-color-primary-active: #0b1628;

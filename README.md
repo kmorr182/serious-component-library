@@ -5,7 +5,7 @@ A small React component library: **Button**, **Input**, **TextArea**, **Select**
 - TypeScript, with generated `.d.ts` types
 - Styled with CSS Modules, themeable via CSS custom properties
 - Built-in `light` / `dark` / `high-contrast` themes via `<ThemeProvider>` (see [Theming](#theming))
-- Self-hosted variable typeface + type scale (see [Typography](#typography))
+- Self-hosted variable typeface + type scale, opt-in (see [Typography](#typography)) — bring your own font instead and pay nothing for the default
 - Built with Vite in library mode (ESM + CJS)
 - Developed and documented with Storybook
 
@@ -39,8 +39,13 @@ theme the components, e.g.:
 ```css
 :root {
   --ruk-color-primary: #7c3aed;
+  --ruk-font-family: 'Your Font', system-ui, sans-serif;
 }
 ```
+
+**`styles.css` does not include the default font** — see [Typography](#typography). If you
+don't set your own `--ruk-font-family`, components fall back to the system UI font, not
+Atkinson Hyperlegible Next.
 
 ## Theming
 
@@ -81,13 +86,25 @@ automatically via `prefers-color-scheme` if no explicit theme is set anywhere in
 
 ## Typography
 
-Components use **[Atkinson Hyperlegible Next](https://github.com/googlefonts/atkinson-hyperlegible-next)**,
-designed by the Braille Institute with legibility as the explicit goal. It's free (SIL Open Font
-License — see [src/styles/fonts/OFL.txt](src/styles/fonts/OFL.txt)) and self-hosted as
-base64-embedded `woff2` in the shipped stylesheet, so using this library adds no external
-font-CDN request.
+Components render in whatever `--ruk-font-family` resolves to — by default, that's just the
+system UI font stack. The library's own designed-for-this typeface,
+**[Atkinson Hyperlegible Next](https://github.com/googlefonts/atkinson-hyperlegible-next)**
+(designed by the Braille Institute with legibility as the explicit goal), is an **opt-in**
+second import, not part of `styles.css`:
 
-The `--ruk-font-family` token controls it everywhere; override it to swap typefaces entirely. A full
+```tsx
+import 'serious-component-library/styles.css'
+import 'serious-component-library/fonts.css' // opt-in: only if you want Atkinson
+```
+
+Two apps on this library can make different calls here with no conflict — one imports
+`fonts.css` and gets Atkinson everywhere; another sets its own `--ruk-font-family` and never
+downloads Atkinson's `woff2` files at all, since nothing ever imports that stylesheet. It's
+free either way (SIL Open Font License — see [src/styles/fonts/OFL.txt](src/styles/fonts/OFL.txt))
+and self-hosted as real `woff2` files (not base64-inlined) if you do import it, so opting in
+adds no external font-CDN request, just two lazily-fetched local files.
+
+The `--ruk-font-family` token controls text everywhere in the library, whichever way you set it. A full
 type scale is available as tokens for your own headings/body text, not just internal component use:
 
 | Token | Size |

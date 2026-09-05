@@ -1,4 +1,8 @@
-import './styles/fonts.css'
+// Deliberately NOT importing './styles/fonts.css' here — the default typeface (Atkinson
+// Hyperlegible Next) is an opt-in import (`serious-component-library/fonts.css`), not bundled
+// into every consumer's build. Consuming apps that want their own fonts just override
+// --ruk-font-family and never pay for Atkinson's bytes at all; apps that want the default
+// import the fonts entry point too. See package.json's "exports" and the README.
 import './styles/tokens.css'
 
 export { Button } from './components/Button'
