@@ -1,0 +1,90 @@
+.tile {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: var(--ruk-radius-sm);
+  font-family: var(--ruk-font-family);
+  cursor: pointer;
+  text-align: left;
+  padding: 10px;
+  display: flex;
+  align-items: flex-end;
+  transition:
+    transform var(--ruk-transition-fast),
+    background-color var(--ruk-transition-fast),
+    border-color var(--ruk-transition-fast),
+    color var(--ruk-transition-fast);
+}
+
+.tile:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--ruk-focus-ring-width, 3px) var(--ruk-color-focus-ring);
+}
+
+.content {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.empty {
+  border: 1.5px dashed var(--ruk-color-border);
+  background: transparent;
+  color: var(--ruk-color-text-muted);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.empty:hover {
+  border-color: var(--ruk-color-border-hover);
+  color: var(--ruk-color-text);
+}
+
+.filled {
+  border: none;
+  /* Light tint, not a more visible-looking 18%+: at the darker/less-saturated end of an
+     arbitrary color's range, a stronger mix can push text-on-fill contrast below 4.5:1. */
+  background: color-mix(in srgb, var(--tile-color, var(--ruk-color-primary)) 10%, white);
+  box-shadow: var(--ruk-shadow-sm, 0 2px 6px rgba(15, 23, 42, 0.1));
+}
+
+.filled:hover {
+  transform: translateY(-2px);
+}
+
+.filled .content {
+  color: var(--tile-color, var(--ruk-color-primary));
+}
+
+.filled.completed {
+  background: color-mix(in srgb, var(--tile-color, var(--ruk-color-primary)) 75%, black);
+}
+
+.filled.completed .content {
+  color: var(--ruk-color-on-primary);
+}
+
+.check {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ruk-color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selected {
+  box-shadow: 0 0 0 var(--ruk-focus-ring-width, 3px) var(--ruk-color-focus-ring);
+}

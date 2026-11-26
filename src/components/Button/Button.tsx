@@ -15,7 +15,7 @@ const ICON_SIZE: Record<ButtonSize, number> = {
 }
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Visual style of the button. @default 'primary' */
+  /** Visual style of the button. @default 'primary' ('ghost' when `iconOnly` is set) */
   variant?: ButtonVariant
   /** Size of the button. @default 'md' */
   size?: ButtonSize
@@ -23,6 +23,12 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean
   /** Icon shown before the label. */
   icon?: IconName
+  /**
+   * Renders as a square, label-less icon button (no visible text). Pass `icon` and no
+   * `children`. Callers must still provide an accessible name via `aria-label`, since there's
+   * no visible label for assistive tech to read.
+   */
+  iconOnly?: boolean
   /** Shows a spinner over the button's content and disables it, without changing the button's size. */
   loading?: boolean
   children?: ReactNode
@@ -31,10 +37,11 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      variant = 'primary',
+      variant,
       size = 'md',
       fullWidth = false,
       icon,
+      iconOnly = false,
       loading = false,
       disabled,
       className,
@@ -44,11 +51,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
+    const resolvedVariant = variant ?? (iconOnly ? 'ghost' : 'primary')
     const classNames = [
       styles.button,
-      styles[variant],
+      styles[resolvedVariant],
       styles[size],
       fullWidth ? styles.fullWidth : '',
+      iconOnly ? styles.iconOnly : '',
       loading ? styles.loading : '',
       className,
     ]
