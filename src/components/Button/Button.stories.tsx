@@ -65,6 +65,10 @@ export const WithIcon: Story = {
   args: { icon: 'search', children: 'Search' },
 }
 
+export const IconOnly: Story = {
+  args: { iconOnly: true, icon: 'close', children: undefined, 'aria-label': 'Close' },
+}
+
 export const Loading: Story = {
   args: { loading: true },
 }

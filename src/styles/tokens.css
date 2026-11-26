@@ -29,6 +29,21 @@
   --ruk-color-star-active: #8c6a53;
   --ruk-color-focus-ring: #71c9be;
 
+  /* A limited, brand-consistent palette for decorative/categorical use (e.g. Tile's `color`
+     prop) — deliberately not an open set of arbitrary colors, so consuming apps can't drift
+     into off-brand hues one tile at a time. Same value in every theme, not overridden below —
+     each is dark/saturated enough to keep sufficient contrast whether it's painted as
+     light-tinted text-on-pale-fill or as white text on the darker completed fill, regardless
+     of the surrounding page's own light/dark theme. */
+  --ruk-color-tile-emerald: #1a7a66;
+  --ruk-color-tile-violet: #6a4fc4;
+  --ruk-color-tile-amber: #8a5f1a;
+  --ruk-color-tile-cobalt: #2a5a96;
+  --ruk-color-tile-ruby: #9c3f5c;
+  --ruk-color-tile-forest: #4a6030;
+  --ruk-color-tile-wine: #433d7a;
+  --ruk-color-tile-slate: #4b5563;
+
   /* Typography */
   --ruk-font-family: 'Atkinson Hyperlegible Next', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial,
     sans-serif;

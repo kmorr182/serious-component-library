@@ -8,6 +8,9 @@ import './styles/tokens.css'
 export { Button } from './components/Button'
 export type { ButtonProps, ButtonVariant, ButtonSize } from './components/Button'
 
+export { Tile } from './components/Tile'
+export type { TileProps, TileColor } from './components/Tile'
+
 export { Alert } from './components/Alert'
 export type { AlertProps, AlertVariant } from './components/Alert'
 

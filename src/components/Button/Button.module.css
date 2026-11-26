@@ -149,3 +149,10 @@
 .fullWidth {
   width: 100%;
 }
+
+/* Square, label-less icon button. Aspect-ratio keeps width matching whichever size class set
+   height, so no separate width rule is needed per size. */
+.iconOnly {
+  padding: 0;
+  aspect-ratio: 1 / 1;
+}

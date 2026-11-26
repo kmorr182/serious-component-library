@@ -1,0 +1,241 @@
+import { Meta, Primary, Controls, Stories } from '@storybook/addon-docs/blocks';
+import * as TileStories from './Tile.stories';
+
+<Meta of={TileStories} />
+
+# Tile
+
+<Primary />
+
+<Controls />
+
+## Overview
+
+Tiles represent one selectable item within a uniform grid of equally-weighted choices, ie a board, a multi-select picker, a grid of toggleable categories. Each Tile is a `<button>` under the hood, so it keeps normal keyboard and screen-reader button behavior for free, while visually reading as a square content cell rather than a typical pill-shaped action button.
+
+Tile owns the selectable/completed/empty/color presentation around whatever content it's given. It does not manage selection state itself. The consumer decides what "selected" and "completed" mean and toggles them.
+
+---
+
+## When to Use
+
+Use a Tile when:
+
+* Presenting a grid of equally-weighted, individually selectable items (a game board, a multi-select picker, a dashboard of toggleable categories).
+* Each item benefits from its own independent completed/done state, separate from selection.
+* Items should carry a brand-palette color tint to stay visually distinct from one another at a glance.
+* The content is short, such as a label or short phrase, since Tile clamps to three lines and is always a fixed rectangle.
+
+---
+
+## When Not to Use
+
+Do not use a Tile when another component better fits the interaction.
+
+Avoid Tile for:
+
+* A single, standalone action. Use **Button** instead.
+* A short, horizontally-flowing set of filter/category toggles rather than a grid. A chip/tag-style control fits that shape better than a square grid cell.
+* Content that needs more than a few words or any rich formatting. Use a **Card** instead.
+* A small set where only one item can ever be selected at a time. Consider **ToggleSwitch** or a set of radio-style Buttons, since Tile doesn't enforce single-selection on its own.
+
+---
+
+## Best Practices
+
+### Do
+
+* Use `color` only from the fixed brand palette. Never override a tile's background with inline styles to reach an off-brand color.
+* Pass a complete `aria-label` describing both the content and the `completed` state when both matter. `aria-pressed` alone only announces selection, not completion.
+* Keep tile content short; move longer text to a Card or detail view instead of cramming it into the tile.
+* Reserve `empty` for a genuine placeholder slot waiting for input, not as a generic "disabled" look.
+
+### Don't
+
+* Don't nest another interactive element inside a Tile's children, since a `<button>` cannot contain another focusable control.
+* Don't rely on `color` alone to convey meaning that matters for accessibility. Pair `color` with distinguishable text or icon content too.
+* Don't reach for Tile for a single big call-to-action; that's what Button is for.
+
+---
+
+## Accessibility Standards
+
+Tiles must be fully operable by all users, regardless of input method or assistive technology.
+
+### Keyboard
+
+* Tiles receive keyboard focus using the Tab key, like any button.
+* Pressing **Enter** or **Space** activates the tile (native button behavior).
+* Focus order should follow the grid's visual layout, typically left-to-right, top-to-bottom.
+
+### Screen Readers
+
+* Every Tile needs an accessible name. Pass `aria-label` describing the tile's content and, where relevant, its `completed` state. The built-in `aria-pressed` only communicates selection, not completion.
+* The completed check badge is `aria-hidden` and purely visual; don't rely on it alone to convey "done" to assistive tech.
+
+### Color & Contrast
+
+* Each brand palette color is tuned to clear a 4.5:1 contrast ratio for its own text in both the filled and completed states.
+* Never introduce a new `color` value outside the fixed palette without checking its contrast in both states first.
+
+### Touch Targets
+
+* Don't let a grid's column count shrink tiles below a comfortably tappable size at mobile widths, 44 × 44 px minimum is recommended.
+
+### WCAG Compliance
+
+Tile is a `<button>` under the hood and should meet the same bar as Button, including:
+
+* Keyboard Accessible
+* Focus Visible
+* Name, Role, Value
+* Use of Color
+* Contrast (Minimum)
+
+---
+
+## Anatomy
+
+A Tile consists of the following elements:
+
+1. Container (square button)
+2. Content (`children`)
+3. Completed check badge (optional)
+4. Selection focus ring (optional)
+
+---
+
+## Variants
+
+### Filled
+
+The default state is a tile with content, tinted by `color`.
+
+---
+
+### Empty
+
+A dashed-border, muted placeholder for an unfilled slot in the grid.
+
+---
+
+### Completed
+
+A darker fill with a check badge, for a tile that's been marked done. Independent of `selected`. Both `selected` and `completed` can be combined.
+
+---
+
+### Selected
+
+Adds a focus-ring-style outline, independent of actual keyboard focus. `selected` communicates "this is the one currently open or active" in a picker-style flow.
+
+---
+
+<Stories />
+
+## States
+
+Tiles should support the following interaction states:
+
+* Default (filled or empty)
+* Hover
+* Focus
+* Completed
+* Selected
+* Any combination of Completed + Selected
+
+Each state should remain visually distinct while preserving accessibility requirements.
+
+---
+
+## Behavior
+
+### Interaction
+
+* Activating a Tile should toggle whatever "selected" or "completed" means in the consumer's own flow. Tile itself holds no selection state.
+* `completed` and `selected` are independent props and can be combined freely.
+
+### Responsive Behavior
+
+Tiles should:
+
+* Resize to fill their grid column via a fixed 1:1 aspect ratio, so they stay perfect squares regardless of column width.
+* Clamp overflowing content to three lines rather than growing the tile or breaking the grid's row height.
+* Remain comfortably tappable as the grid's column count increases at narrow viewports.
+
+---
+
+## Content Guidelines
+
+Tile content should name the item itself, not describe an action.
+
+### Writing Guidelines
+
+* Keep content to a few words. It clamps to three lines and is cut off by an ellipsis beyond that.
+* Prefer short nouns or phrases describing the item ("Read 12 books") over action verbs ("Click here"). A Tile represents an item in a set, not a one-off action.
+
+Good Examples
+
+* Run a 5K
+* Save $500
+* Learn Spanish
+
+Poor Examples
+
+* Click here
+* Submit
+* An extremely long sentence that won't fit in a square tile
+
+---
+
+## Design Specifications
+
+TODO: Add Figma designs
+
+Document:
+
+* Shape
+** 1:1 aspect ratio, fills 100% of its container's width
+* Corner radius
+** `--ruk-radius-sm` (4px)
+* Padding
+** 10px
+* Typography
+** Content: 12px, weight 700, line-clamp 3
+* Colors
+** Fixed brand palette only (`emerald`, `violet`, `amber`, `cobalt`, `ruby`, `forest`, `wine`, `slate`)
+** Filled background: 10% color-mix of `color` into white
+** Completed background: 75% color-mix of `color` into black
+* Focus ring / selected ring
+** `--ruk-focus-ring-width` (3px), color `--ruk-color-focus-ring`
+
+---
+
+## Developer Notes
+
+### Implementation Guidelines
+
+* Tile is a plain `<button>`. All standard `ButtonHTMLAttributes` (`onClick`, `aria-*`, `disabled`, etc.) pass straight through.
+* `color` only accepts the fixed `TileColor` union. There is no escape hatch for arbitrary CSS colors, by design, to keep tiles on-brand.
+* Selection state (`selected`) is fully controlled by the consumer; Tile has no internal selection logic of its own.
+* `completed`'s check badge uses the shared `Icon` component (`name="check"`), not a one-off SVG.
+
+---
+
+## Related Components
+
+* Button
+* ToggleSwitch
+* Icon
+
+---
+
+## Design Checklist
+
+Before publishing a screen, verify that:
+
+* Tiles sit in a genuine grid of comparable, equally-weighted items. There are no single standalone actions.
+* Each tile's accessible name communicates both its content and its completed state where relevant.
+* Only palette `color` values are used. There are no off-brand colors introduced via inline styles.
+* Tiles remain comfortably tappable at mobile widths.
+* Empty, filled, completed, and selected states are all visually distinct from one another.
