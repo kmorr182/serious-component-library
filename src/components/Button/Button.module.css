@@ -20,10 +20,21 @@
   display: inline-flex;
   align-items: center;
   gap: var(--ruk-spacing-2);
+  /* Flex items default to min-width: auto (floored at content size), which would otherwise
+     stop .label from ever shrinking enough for its own ellipsis truncation to kick in. */
+  min-width: 0;
 }
 
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* opacity keeps the label (e.g. "Save") in the accessible name while the
+   spinner covers it visually, so assistive tech still hears "Save, busy" instead of nothing. */
 .loading .content {
-  visibility: hidden;
+  opacity: 0;
 }
 
 .loading {
@@ -84,6 +95,22 @@
   height: 32px;
   padding: 10px 12px;
   font-size: var(--ruk-font-size-sm);
+}
+
+/* Invisible hit-area expansion: growing sm's own visible box to the recommended 44px touch
+   target would make it taller than md (40px), breaking the sm < md < lg ordering. ::before
+   extends the actual clickable area without changing how the button looks, same technique
+   recommended for meeting WCAG 2.5.8's target size on a visually compact control. Needs
+   .button's position: relative (set above) — ::before positions relative to that, not the
+   viewport, and still counts as a click on the button since it's generated content inside it,
+   not a separate element.
+   Caveat: sm buttons placed closer than 12px apart (two 6px expansions) will have overlapping
+   hit areas near the boundary between them — fine on its own, but worth widening the gap
+   between adjacent sm buttons if you notice mis-taps along their shared edge. */
+.sm::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
 }
 
 .md {

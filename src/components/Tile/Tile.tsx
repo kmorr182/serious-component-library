@@ -40,7 +40,18 @@ export interface TileProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  */
 export const Tile = forwardRef<HTMLButtonElement, TileProps>(
   (
-    { selected = false, completed = false, empty = false, color, className, type = 'button', style, children, ...rest },
+    {
+      selected = false,
+      completed = false,
+      empty = false,
+      color,
+      className,
+      type = 'button',
+      style,
+      children,
+      'aria-label': ariaLabel,
+      ...rest
+    },
     ref,
   ) => {
     const classNames = [
@@ -56,13 +67,25 @@ export const Tile = forwardRef<HTMLButtonElement, TileProps>(
     const tileStyle = color ? ({ ...style, '--tile-color': TILE_COLOR_VAR[color] } as CSSProperties) : style
 
     return (
-      <button ref={ref} type={type} className={classNames} style={tileStyle} aria-pressed={selected} {...rest}>
+      <button
+        ref={ref}
+        type={type}
+        className={classNames}
+        style={tileStyle}
+        aria-pressed={selected}
+        aria-label={ariaLabel}
+        {...rest}
+      >
         <span className={styles.content}>{children}</span>
         {completed && (
           <span className={styles.check} aria-hidden="true">
             <Icon name="check" size={11} />
           </span>
         )}
+        {/* Fallback only. A caller-supplied aria-label already covers this. Without it, the
+           completed check badge (aria-hidden) would be the only signal, leaving "completed"
+           entirely invisible to screen readers. */}
+        {completed && !ariaLabel && <span className={styles.srOnly}> (completed)</span>}
       </button>
     )
   },
